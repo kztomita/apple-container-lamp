@@ -17,14 +17,14 @@ container CLI version 0.4.1 (build: release, commit: 4ac18b5)
 
 # Setup
 
-To enable container-to-container communication using hostnames, you need to create a DNS server and set it as default.
+To enable container-to-container communication using hostnames, you need to create a DNS domain and set it as default.
 
 ```
 % sudo container system dns create box
 % container system dns default set box
 ```
 
-This allows container-to-container communication to be accessed via `<container-name>.box`.
+This makes each container's hostname become "<container-name>.box", allowing containers to be accessed using this hostname.
 
 If you want to use an existing domain name in your environment, you need to modify the following files:
 

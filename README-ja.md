@@ -17,14 +17,14 @@ container CLI version 0.4.1 (build: release, commit: 4ac18b5)
 
 # 準備
 
-ホスト名でコンテナ間の通信を行うために、DNSサーバを作成しデフォルト設定しておく必要がある。
+ホスト名でコンテナ間の通信を行うために、DNSドメインを作成しデフォルト設定しておく必要がある。
 
 ```
 % sudo container system dns create box
 % container system dns default set box
 ```
 
-これでコンテナ間の通信は<container名>.box でアクセスできるようになる。
+これで起動する各コンテナのホスト名は "<コンテナ名>.box" となり、このホスト名でコンテナにアクセスできるようになる。
 
 自分の環境で作成済みのドメイン名を使いたい場合は、以下のファイルの修正が必要になる。
 
