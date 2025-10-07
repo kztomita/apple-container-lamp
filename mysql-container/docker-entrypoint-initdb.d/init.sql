@@ -1,0 +1,9 @@
+CREATE DATABASE test;
+
+CREATE TABLE test.messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    content VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO test.messages (content) VALUES ('Hello');
