@@ -17,20 +17,14 @@ container CLI version 0.4.1 (build: release, commit: 4ac18b5)
 
 # Setup
 
-To enable container-to-container communication using hostnames, you need to create a DNS domain and set it as default.
+To enable container-to-container communication using hostnames, you need to create a DNS domain and set it as default. The name can be anything, but we'll use "box" in the following example.
 
 ```
 % sudo container system dns create box
 % container system dns default set box
 ```
 
-This makes each container's hostname become "<container-name>.box", allowing containers to be accessed using this hostname.
-
-If you want to use an existing domain name in your environment, you need to modify the following files:
-
-- fastcgi_pass setting in ./nginx-container/conf.d/default.conf (lamp-php.box:9000)
-- DNS_DEFAULT_NAME=box setting in ./app.sh
-- DB hostname specified in ./html/db.php (lamp-mysql.box)
+This makes each container's hostname become "<container-name>.box", allowing containers to be accessed using this hostname. You can also access containers by omitting the domain name (.box) and using just "<container-name>".
 
 # How to Start
 ```

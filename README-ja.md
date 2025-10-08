@@ -17,20 +17,14 @@ container CLI version 0.4.1 (build: release, commit: 4ac18b5)
 
 # 準備
 
-ホスト名でコンテナ間の通信を行うために、DNSドメインを作成しデフォルト設定しておく必要がある。
+ホスト名でコンテナ間の通信を行うために、DNSドメインを作成しデフォルト設定しておく必要がある。名前はなんでもいいが、以下では"box"とする。
 
 ```
 % sudo container system dns create box
 % container system dns default set box
 ```
 
-これで起動する各コンテナのホスト名は "<コンテナ名>.box" となり、このホスト名でコンテナにアクセスできるようになる。
-
-自分の環境で作成済みのドメイン名を使いたい場合は、以下のファイルの修正が必要になる。
-
-- ./nginx-container/conf.d/default.conf の fastcgi_pass設定lamp-php.box:9000)
-- ./app.sh の DNS_DEFAULT_NAME=box設定
-- ./html/db.php で指定しているDBホスト名(lamp-mysql.box)
+これで起動する各コンテナのホスト名は "<コンテナ名>.box" となり、このホスト名でコンテナにアクセスできるようになる。ドメイン名(.box)を省略して"<コンテナ名>"でアクセスすることもできる。
 
 # 起動方法
 ```

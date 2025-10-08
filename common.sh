@@ -2,16 +2,12 @@
 
 # common functions
 
-check_dns() {
+dns_default() {
     local NAME=`container system dns default inspect`
     if [ $? -ne 0 ]; then
-        echo "DNS default ($DNS_DEFAULT_NAME) is not found. Please create it first."
-        exit 1
+        return ""
     fi
-    if [ "$NAME" != "$DNS_DEFAULT_NAME" ]; then
-        echo "Current DNS default is '$NAME'. Please set it to '$DNS_DEFAULT_NAME' or change the script."
-        exit 1
-    fi
+    echo $NAME
 }
 
 volume_exists() {

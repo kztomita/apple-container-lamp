@@ -13,8 +13,6 @@ NGINX_IMAGE=nginx:latest
 PHP_CONTAINER_NAME=lamp-php
 PHP_BUILDED_IMAGE=lamp-php:latest
 
-DNS_DEFAULT_NAME=box
-
 source ./common.sh
 
 # Create necessary resources
@@ -40,7 +38,11 @@ run() {
     local PHP_INI=$CWD/php-container/php.ini
     local MYSQL_INITDB=$CWD/mysql-container/docker-entrypoint-initdb.d
 
-    check_dns
+    local DNS_DEFAULT_NAME=$(dns_default)
+    if [ -z "$DNS_DEFAULT_NAME" ]; then
+        echo "Default DNS is not found. Please create it first."
+        exit 1
+    fi
 
     # Start lamp-php first since nginx references lamp-php.
 
