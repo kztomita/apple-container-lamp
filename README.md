@@ -24,7 +24,7 @@ To enable container-to-container communication using hostnames, you need to crea
 % container system dns default set box
 ```
 
-This makes each container's hostname become "<container-name>.box", allowing containers to be accessed using this hostname. You can also access containers by omitting the domain name (.box) and using just "<container-name>".
+This makes each container's hostname become "&lt;container-name&gt;.box", allowing containers to be accessed using this hostname. You can also access containers by omitting the domain name (.box) and using just "&lt;container-name&gt;".
 
 # How to Start
 ```
