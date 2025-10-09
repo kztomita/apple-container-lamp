@@ -8,19 +8,28 @@ Apple Containerにはまだcomposeがないため、シェルスクリプトで�
 
 <a href="https://github.com/apple/container">Apple Container</a>はインストールしてサービスが起動済みであるとする。
 
-使用した Containerのバージョンはv0.4.1。
+使用した Container CLIのバージョンはv0.5.0。v0.4.1でも動作する。
 
 ```
 % container --version
-container CLI version 0.4.1 (build: release, commit: 4ac18b5)
+container CLI version 0.5.0 (build: release, commit: 48230f3)
 ```
 
 # 準備
 
 ホスト名でコンテナ間の通信を行うために、DNSドメインを作成しデフォルト設定しておく必要がある。名前はなんでもいいが、以下では"box"とする。
 
+コンテナ用ドメインの作成。
 ```
 % sudo container system dns create box
+```
+
+デフォルトドメインの設定
+```
+# CLI version v0.5.0以降
+% container system property set dns.domain box
+
+# CLI version v0.4.x
 % container system dns default set box
 ```
 

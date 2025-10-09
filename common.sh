@@ -2,10 +2,23 @@
 
 # common functions
 
+cli_version() {
+    echo `container --version | awk '{print $4}'`
+}
+
 dns_default() {
-    local NAME=`container system dns default inspect`
-    if [ $? -ne 0 ]; then
-        return ""
+    local VERSION=$(cli_version)
+    if [[ $VERSION == 0.4.* ]]; then
+        local NAME=`container system dns default inspect`
+        if [ $? -ne 0 ]; then
+            return ""
+        fi
+    else
+        # v0.5.0-
+        local NAME=`container system property get dns.domain`
+        if [ $? -ne 0 ]; then
+            return ""
+        fi
     fi
     echo $NAME
 }

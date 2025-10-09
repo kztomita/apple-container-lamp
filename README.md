@@ -8,23 +8,32 @@ Since Apple Container doesn't have compose functionality yet, this shell script 
 
 <a href="https://github.com/apple/container">Apple Container</a> should be installed and the service should be running.
 
-The Container version used is v0.4.1.
+The Container CLI version used is v0.5.0. It also works with v0.4.1.
 
 ```
 % container --version
-container CLI version 0.4.1 (build: release, commit: 4ac18b5)
+container CLI version 0.5.0 (build: release, commit: 48230f3)
 ```
 
 # Setup
 
 To enable container-to-container communication using hostnames, you need to create a DNS domain and set it as default. The name can be anything, but we'll use "box" in the following example.
 
+Create a domain for containers:
 ```
 % sudo container system dns create box
+```
+
+Set the default domain:
+```
+# CLI version v0.5.0 and later
+% container system property set dns.domain box
+
+# CLI version v0.4.x
 % container system dns default set box
 ```
 
-This makes each container's hostname become "&lt;container-name&gt;.box", allowing containers to be accessed using this hostname. You can also access containers by omitting the domain name (.box) and using just "&lt;container-name&gt;".
+Now newly launched container's hostname will be "&lt;container-name&gt;.box", and containers can be accessed using this hostname. You can also access containers by omitting the domain name (.box) and using just "&lt;container-name&gt;".
 
 # How to Start
 ```
