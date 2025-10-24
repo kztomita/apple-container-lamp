@@ -13,6 +13,9 @@ NGINX_IMAGE=nginx:latest
 PHP_CONTAINER_NAME=lamp-php
 PHP_BUILDED_IMAGE=lamp-php:latest
 
+# Start lamp-php first since nginx references lamp-php.
+ALL_CONTAINERS="$PHP_CONTAINER_NAME $NGINX_CONTAINER_NAME $MYSQL_CONTAINER_NAME"
+
 source ./common.sh
 
 # Create necessary resources
@@ -22,7 +25,7 @@ create() {
 
 # Delete created resources.
 cleanup() {
-    cleanup_container
+    cleanup_all_containers
     volume_delete $MYSQL_VOLUME
     image_rm $PHP_BUILDED_IMAGE
 }
@@ -65,30 +68,6 @@ run() {
     fi
 }
 
-# Stop and remove containers
-cleanup_container() {
-    container_stop $NGINX_CONTAINER_NAME
-    container_stop $PHP_CONTAINER_NAME
-    container_stop $MYSQL_CONTAINER_NAME
-
-    container_rm $NGINX_CONTAINER_NAME
-    container_rm $PHP_CONTAINER_NAME
-    container_rm $MYSQL_CONTAINER_NAME
-}
-
-start() {
-    # Start lamp-php first since nginx references lamp-php.
-    container_start $PHP_CONTAINER_NAME
-    container_start $NGINX_CONTAINER_NAME
-    container_start $MYSQL_CONTAINER_NAME
-}
-
-stop() {
-    container_stop $NGINX_CONTAINER_NAME
-    container_stop $PHP_CONTAINER_NAME
-    container_stop $MYSQL_CONTAINER_NAME
-}
-
 case "$1" in
     create)
         create
@@ -97,7 +76,7 @@ case "$1" in
         cleanup
         ;;
     cleanup_container)
-        cleanup_container
+        cleanup_all_containers $ALL_CONTAINERS
         ;;
     build)
         build
@@ -106,10 +85,10 @@ case "$1" in
         run
         ;;
     start)
-        start
+        start_all $ALL_CONTAINERS
         ;;
     stop)
-        stop
+        stop_all $ALL_CONTAINERS
         ;;
     *)
         echo "Usage: $0 {create|cleanup|cleanup_container|run|start|stop}"

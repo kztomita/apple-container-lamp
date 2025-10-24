@@ -138,3 +138,45 @@ container_stop() {
     fi
     echo "Container $CONTAINER stopped."
 }
+
+# Reverse a string of words
+# "foo bar baz" -> "baz bar foo"
+reverse_string() {
+    local array=($1)  # To array
+    local reversed=""
+
+    for ((i=${#array[@]}-1; i>=0; i--)); do
+        reversed="$reversed ${array[i]}"
+    done
+    echo $reversed
+}
+
+# Stop and remove containers
+cleanup_all_containers() {
+    local CONTAINERS=$@
+    CONTAINERS=`reverse_string "$CONTAINERS"`
+
+    for CONTAINER in $CONTAINERS; do
+        container_stop $CONTAINER
+    done
+    for CONTAINER in $CONTAINERS; do
+        container_rm $CONTAINER
+    done
+}
+
+start_all() {
+    local CONTAINERS=$@
+
+    for CONTAINER in $CONTAINERS; do
+        container_start $CONTAINER
+    done
+}
+
+stop_all() {
+    local CONTAINERS=$@
+    CONTAINERS=`reverse_string "$CONTAINERS"`
+
+    for CONTAINER in $CONTAINERS; do
+        container_stop $CONTAINER
+    done
+}
