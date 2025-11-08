@@ -56,6 +56,7 @@ volume_delete() {
     if [ $? -ne 0 ]; then
         echo "Failed to delete volume $VOLUME"
         #exit 1
+        return
     fi
     echo "Volume $VOLUME deleted."
 }
@@ -82,6 +83,7 @@ image_rm() {
     if [ $? -ne 0 ]; then
         echo "Failed to remove image $IMAGE"
         #exit 1
+        return
     fi
     echo "Image $IMAGE removed."
 }
@@ -111,6 +113,7 @@ container_rm() {
     if [ $? -ne 0 ]; then
         echo "Failed to remove $CONTAINER container"
         #exit 1
+        return
     fi
     echo "Container $CONTAINER removed."
 }
@@ -121,6 +124,7 @@ container_start() {
     if [ $? -ne 0 ]; then
         echo "Failed to start $CONTAINER container"
         #exit 1
+        return
     fi
     echo "Container $CONTAINER started."
 }
@@ -135,6 +139,7 @@ container_stop() {
     if [ $? -ne 0 ]; then
         echo "Failed to stop $CONTAINER container"
         #exit 1
+        return
     fi
     echo "Container $CONTAINER stopped."
 }
